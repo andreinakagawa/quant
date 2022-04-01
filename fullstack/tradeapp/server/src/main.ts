@@ -1,7 +1,7 @@
 import path from "path";
 import express, { Express, NextFunction, Request, Response } from "express";
 import WebSocket from "ws";
-//import {serverInfo} from "./ServerInfo";
+import {Portfolio} from "./portfolio"
 
 const app: Express = express();
 app.use(express.json());
@@ -25,6 +25,19 @@ app.get("/teste", async(inRequest:Request, inResponse:Response) => {
     inResponse.send("HELLO!");
   } catch(inError) {
     inResponse.send("ERRO");
+  }
+})
+
+//testing a get request 
+app.get("/portfolio", async(inRequest:Request, inResponse:Response) => {
+  try {
+    
+    let p = new Portfolio(5, "Ibovespa Portfolio BR", "My Portfolio");
+    
+    inResponse.send(JSON.stringify(p));
+
+  } catch(inError) {
+    inResponse.sendStatus(404);
   }
 })
 
